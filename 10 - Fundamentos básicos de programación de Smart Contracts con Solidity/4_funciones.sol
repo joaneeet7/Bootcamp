@@ -2,16 +2,16 @@
 pragma solidity ^0.8.0;
 
 contract functions {
-    // Pure modifier 
+    // Pure  
     function getName() public pure returns (string memory){
         return "George/Joan";
     }
-    // View modifier
+    // View 
     uint256 x = 100;
     function getNumber() public view returns (uint256){
         return x*2;
     }
-    // Payable modifier
+    // Payable 
     struct wallet {
         string _name;
         address _address;
@@ -23,7 +23,7 @@ contract functions {
         wallet memory wallet1;
         wallet1 = wallet(_name, msg.sender, _amount);
         moneyWallet[msg.sender] = wallet1;
-        // The issuer pays Ethers
+        // Emisor paga Ethers
         payable(msg.sender).transfer(_amount);
         emit payment (_name, msg.sender, _amount);
     }
