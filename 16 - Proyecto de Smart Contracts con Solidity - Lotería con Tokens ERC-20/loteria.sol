@@ -23,8 +23,8 @@ contract loteria is ERC20, Ownable {
     }
 
     // Visualizacion del balance de tokens de una persona
-    function balanceTokens(address _acount) public view returns (uint256){ 
-        return balanceOf(_acount);
+    function balanceTokens(address _account) public view returns (uint256){ 
+        return balanceOf(_account);
     }
 
     // Visualizacion del balance de tokens del Smart Contract
