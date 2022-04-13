@@ -3,6 +3,7 @@ import './App.css';
 import Web3 from 'web3'
 import smart_contract from '../abis/loteria.json'
 import { Icon } from 'semantic-ui-react'
+import Swal from 'sweetalert2'
 
 class App extends Component {
 
@@ -51,14 +52,37 @@ class App extends Component {
     }
   }
 
-  // Función para realizar la compra de tokens
+  // Constructor
+  constructor(props) {
+    super(props)
+    this.state = {
+      contract: null,
+      errorMessage: ""
+    }
+  }
+
+  // Compra de tokens ERC-20
   _compraTokens = async (_numTokens) => {
     try {
       console.log("Compra de tokens en ejecución...")
       const web3 = window.web3
       const accounts = await web3.eth.getAccounts()
-      const ethers = web3.utils.toWei(this.cantidad.value, 'ether')
+      const ethers = web3.utils.toWei(this._numTokens.value, 'ether')
       await this.state.contract.methods.compraTokens(_numTokens).send({ from: accounts[0], value: ethers })
+
+      // Notificacion de compra
+      Swal.fire({
+        title: '¡Compra de tokens realizada!',
+        text: `Has comprado ${_numTokens} tokens por un valor de ${ethers / 10 ** 18} ether/s`,
+        width: 800,
+        icon: 'success',
+        padding: '3em',
+        backdrop: `
+            rgba(15, 238, 168,0.2)
+            left top
+            no-repeat
+          `
+      })
     } catch (err) {
       this.setState({ errorMessage: err.message })
     } finally {

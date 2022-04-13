@@ -17,6 +17,7 @@
     "react-dom": "16.8.4",
     "react-scripts": "4.0.3",
     "semantic-ui-react": "2.1.2",
+    "sweetalert2": "11.4.8",
     "truffle": "5.4.5",
     "web3": "1.7.3"
   },
