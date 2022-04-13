@@ -25,7 +25,7 @@ class App extends Component {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <img src={logo} className="App-logo" alt="" width="100%" height="50%" />
+                  <img src={logo} className="App-logo" alt="" width="100%" height="60%" />
                 </a>
                 <h1>DApp (Autor: <a href="https://www.linkedin.com/in/joanamengual7/">Joan Amengual</a>)</h1>
                 <p>
