@@ -19,7 +19,6 @@ class App extends Component {
       window.web3 = new Web3(window.ethereum)
       await window.ethereum.enable()
     }
-
     else if (window.web3) {
       window.web3 = new Web3(window.web3.currentProvider)
     }
@@ -34,7 +33,8 @@ class App extends Component {
     const accounts = await web3.eth.getAccounts()
     this.setState({ account: accounts[0] })
     console.log('Account:', this.state.account)
-    const networkId = await web3.eth.net.getId() // Ganache -> 5777, Rinkeby -> 4, BSC -> 97
+    // Ganache -> 5777, Rinkeby -> 4, BSC -> 97
+    const networkId = await web3.eth.net.getId() 
     console.log('networkid:', networkId)
     const networkData = smart_contract.networks[networkId]
     console.log('NetworkData:', networkData)

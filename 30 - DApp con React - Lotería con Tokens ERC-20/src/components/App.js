@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import logo from '../logo.png';
 import './App.css';
 import Web3 from 'web3'
 import smart_contract from '../abis/loteria.json'
+import { Icon } from 'semantic-ui-react'
 
 class App extends Component {
 
@@ -19,7 +19,6 @@ class App extends Component {
       window.web3 = new Web3(window.ethereum)
       await window.ethereum.enable()
     }
-
     else if (window.web3) {
       window.web3 = new Web3(window.web3.currentProvider)
     }
@@ -34,7 +33,8 @@ class App extends Component {
     const accounts = await web3.eth.getAccounts()
     this.setState({ account: accounts[0] })
     console.log('Account:', this.state.account)
-    const networkId = await web3.eth.net.getId() // Ganache -> 5777, Rinkeby -> 4, BSC -> 97
+    // Ganache -> 5777, Rinkeby -> 4, BSC -> 97
+    const networkId = await web3.eth.net.getId()
     console.log('networkid:', networkId)
     const networkData = smart_contract.networks[networkId]
     console.log('NetworkData:', networkData)
@@ -51,6 +51,20 @@ class App extends Component {
     }
   }
 
+  // Función para realizar la compra de tokens
+  _compraTokens = async (_numTokens) => {
+    try {
+      console.log("Compra de tokens en ejecución...")
+      const web3 = window.web3
+      const accounts = await web3.eth.getAccounts()
+      const ethers = web3.utils.toWei(this.cantidad.value, 'ether')
+      await this.state.contract.methods.compraTokens(_numTokens).send({ from: accounts[0], value: ethers })
+    } catch (err) {
+      this.setState({ errorMessage: err.message })
+    } finally {
+      this.setState({ loading: false })
+    }
+  }
 
   render() {
     return (
@@ -69,25 +83,24 @@ class App extends Component {
           <div className="row">
             <main role="main" className="col-lg-12 d-flex text-center">
               <div className="content mr-auto ml-auto">
-                <a
-                  href="https://blockstellart.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <img src={logo} className="App-logo" alt="" width="100%" height="60%" />
-                </a>
-                <h1>DApp (Autor: <a href="https://www.linkedin.com/in/joanamengual7/">Joan Amengual</a>)</h1>
-                <p>
-                  Edita <code>src/components/App.js</code> y guarda para recargar.
-                </p>
-                <a
-                  className="App-link"
-                  href="https://blockstellart.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  ¡APRENDE BLOCKCHAIN <u><b>AHORA! </b></u>
-                </a>
+                <h3> <Icon circular inverted color='red' name='dollar' /> Compra tokens ERC-20</h3>
+
+                <form onSubmit={(event) => {
+                  event.preventDefault()
+                  const cantidad = this._numTokens.value
+                  this._compraTokens(cantidad)
+                }
+                }>
+
+                  <input type="text"
+                    className='form-control mb-1'
+                    placeholder="Cantidad de tokens a comprar"
+                    ref={(input) => this._numTokens = input} />
+
+                  <input type="submit"
+                    className='bbtn btn-block btn-primary btn-sm'
+                    value='COMPRAR TOKENS' />
+                </form>
               </div>
             </main>
           </div>
