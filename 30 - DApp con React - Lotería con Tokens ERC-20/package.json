@@ -12,13 +12,12 @@
     "chai-as-promised": "7.1.1",
     "chai-bignumber": "3.0.0",
     "package.json": "^2.0.1",
-    "packages.json": "^1.0.2",
     "react": "16.8.4",
-    "react-bootstrap": "^1.6.4",
+    "react-bootstrap": "1.6.4",
     "react-dom": "16.8.4",
-    "react-scripts": "^0.9.5",
-    "truffle": "^5.1.67",
-    "web3": "^1.7.3"
+    "react-scripts": "4.0.3",
+    "truffle": "5.4.5",
+    "web3": "1.7.3"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -35,6 +34,6 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "postcss-normalize": "^10.0.1"
+    "postcss-normalize": "10.0.1"
   }
 }

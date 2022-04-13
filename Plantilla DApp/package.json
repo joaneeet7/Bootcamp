@@ -13,11 +13,11 @@
     "chai-bignumber": "3.0.0",
     "package.json": "^2.0.1",
     "react": "16.8.4",
-    "react-bootstrap": "^1.6.4",
+    "react-bootstrap": "1.6.4",
     "react-dom": "16.8.4",
-    "react-scripts": "^5.0.1",
+    "react-scripts": "4.0.3",
     "truffle": "5.4.5",
-    "web3": "^1.7.3"
+    "web3": "1.7.3"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -34,6 +34,6 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "postcss-normalize": "^10.0.1"
+    "postcss-normalize": "10.0.1"
   }
 }
