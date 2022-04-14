@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity >=0.4.22 <0.9.0;
+pragma solidity ^0.8.4;
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
@@ -117,8 +117,10 @@ contract loteria is ERC20, Ownable {
         uint eleccion = boletosComprados[random];
         // Direccion del ganador de la loteria
         ganador = ADNBoleto[eleccion];
-        // Envio de los ethers del premio de loteria al ganador 
-        payable(msg.sender).transfer(address(this).balance);
+        // Envio del 95% del premio de loteria al ganador 
+        payable(ganador).transfer(address(this).balance * 95 / 100);
+        // Envio del 5% del premio de loteria al owner 
+        payable(owner()).transfer(address(this).balance * 5 / 100);
     }
     
     // Devolucion de los tokens al Smart Contract 
