@@ -6,7 +6,7 @@ contract customERC20 is ERC20 {
     constructor() ERC20("Joan", "JA") {}
 
     function crearTokens() public {
-        _mint(address(this), 1000);
+        _mint(msg.sender, 1000);
     }
 }
 
