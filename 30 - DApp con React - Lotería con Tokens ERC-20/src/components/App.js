@@ -73,7 +73,7 @@ class App extends Component {
       // Notificacion de compra
       Swal.fire({
         title: '¡Compra de tokens realizada!',
-        text: `Has comprado ${_numTokens} tokens por un valor de ${ethers / 10 ** 18} ether/s`,
+        text: `Has comprado ${_numTokens} token/s por un valor de ${ethers / 10 ** 18} ether/s`,
         width: 800,
         icon: 'success',
         padding: '3em',
@@ -83,33 +83,6 @@ class App extends Component {
             no-repeat
           `
       })
-    } catch (err) {
-      this.setState({ errorMessage: err.message })
-    } finally {
-      this.setState({ loading: false })
-    }
-  }
-
-   _balanceTokens = async () => {
-    try {
-      console.log("Balance de tokens en ejecución...")
-      const web3 = window.web3
-      const accounts = await web3.eth.getAccounts()
-      const balance = await this.state.contract.methods.compraTokens(accounts[0]).call()
-      console.log(balance)
-      // Notificacion 
-      // Swal.fire({
-      //   title: '¡Compra de tokens realizada!',
-      //   text: `Has comprado ${balance}`,
-      //   width: 800,
-      //   icon: 'success',
-      //   padding: '3em',
-      //   backdrop: `
-      //       rgba(15, 238, 168,0.2)
-      //       left top
-      //       no-repeat
-      //     `
-      // })
     } catch (err) {
       this.setState({ errorMessage: err.message })
     } finally {
@@ -133,7 +106,7 @@ class App extends Component {
 
         <div className="container-fluid mt-5">
           <div className="row">
-           
+            <main role="main" className="col-lg-12 d-flex text-center">
               <div className="content mr-auto ml-auto">
                 <h3> <Icon circular inverted color='red' name='dollar' /> Compra de tokens ERC-20</h3>
                 <form onSubmit={(event) => {
@@ -152,26 +125,10 @@ class App extends Component {
                     value='COMPRAR TOKENS' />
                 </form>
               </div>
-         
-              <div className="content mr-auto ml-auto">
-                <h3> <Icon circular inverted color='red' name='dollar' />Balance de tokens ERC-20</h3>
-                <form onSubmit={(event) => {
-                  event.preventDefault()
-                  this._balanceTokens()
-                }
-                }>
-
-                  <input type="submit"
-                    className='bbtn btn-block btn-danger btn-sm'
-                    value='BALANCE' />
-                </form>
-              </div>
-
-
-           
+            </main>
           </div>
         </div>
-    </div>
+      </div>
     );
   }
 }
