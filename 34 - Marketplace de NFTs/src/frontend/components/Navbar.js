@@ -10,7 +10,7 @@ const Navigation = ({ web3Handler, account }) => {
             <Container>
                 <Navbar.Brand href="https://blockstellart.com">
                     <img src={nft} width="40" height="40" className="" alt="" />
-                    &nbsp; DApp NFT Marketplace
+                    &nbsp; NFT Marketplace
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="navbar navbar-dark bg-primary" />
                 <Navbar.Collapse id="navbar navbar-dark bg-primary">
@@ -28,7 +28,7 @@ const Navigation = ({ web3Handler, account }) => {
                                 rel="noopener noreferrer"
                                 className="button nav-button btn-sm mx-4">
                                 <Button variant="outline-light">
-                                    {account.slice(0, 10) + '...' + account.slice(38, 42)}
+                                    {account}
                                 </Button>
 
                             </Nav.Link>
