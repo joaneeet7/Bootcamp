@@ -7,10 +7,10 @@ contract Food {
         string name;
         string ingredients;
     }
-    // Menú del día
+    // Menu del dia
     dinnerPlate [] menu;
 
-    // Creación de un nuevo menú 
+    // Creacion de un nuevo menu 
     function newPlate (string memory _name, string memory _ingredients) internal {
         menu.push(dinnerPlate(_name, _ingredients));
     }
@@ -29,12 +29,12 @@ contract Hamburger is Food {
         newPlate("Hamburger", _ingredients);
     }
 
-    // Función restringida al owner del Smart Contract
+    // Funcion restringida al owner del Smart Contract
     function hashPrivateNumber(uint256 _number) public view onlyOwner returns (bytes32){
         return keccak256(abi.encodePacked(_number));
     }
 
-    // Modifier para permitir el acceso al owner y sólo al owner
+    // Modifier para permitir el acceso al owner y solo al owner
     modifier onlyOwner() {
         require(owner == msg.sender,"You do not have permissions to execute this function");
         _;

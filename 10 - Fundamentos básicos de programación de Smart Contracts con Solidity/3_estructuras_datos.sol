@@ -15,10 +15,10 @@ contract data_structures {
     // Array de uints de longitud fija 5
     uint256[5] public fixed_list_uints = [1,2,3,4,5];
 
-    // Array dinámico de uints
+    // Array dinamico de uints
     uint256 [] dynamic_list_uints;
 
-    // Array dinámico de tipo de cliente
+    // Array dinamico de tipo de cliente
     Customer [] public dynamic_list_customer;
 
     // Nuevos datos en un array 
@@ -31,17 +31,17 @@ contract data_structures {
     mapping (string => uint256 []) public string_listUnits;
     mapping (address => Customer) public address_dataStructure;
 
-    // Asignar un número a una dirección
+    // Asignar un numero a una direccion
     function assignNumber(uint256 _number) public {
         address_uint[msg.sender] = _number;
     }
 
-    // Asignar un número a una dirección
+    // Asignar un numero a una direccion
     function assignList(string memory _name, uint256 _number) public {
         string_listUnits[_name].push(_number);
     }
 
-    // Asignación de una estructura de datos a una dirección
+    // Asignacion de una estructura de datos a una direccion
     function assignDataStructure (uint _id, string memory _name, string memory _email) public {
         address_dataStructure[msg.sender] = Customer(_id, _name, _email);
     }

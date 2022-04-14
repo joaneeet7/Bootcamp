@@ -31,7 +31,7 @@ contract variables_modifiers {
     address public address1 = 0xAb8483F64d9C6d1EcF9b849Ae677dD3315835cb2;
     address public address2 = msg.sender;
 
-    // Variable de enumeración
+    // Variable de enumeracion
     enum options {ON, OFF}
     options state;
     options constant defaultChoice = options.OFF;
