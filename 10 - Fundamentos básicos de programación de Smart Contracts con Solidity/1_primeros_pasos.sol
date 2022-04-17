@@ -4,7 +4,7 @@
 pragma solidity ^0.8.4; // o pragma solidity >=0.6.0 <0.8.0;
 
 // Importar un contrato inteligente desde Openzeppelin
-import "@openzeppelin/contracts@4.4.2/token/ERC721/ERC721.sol";
+import "@openzeppelin/contracts@4.5.0/token/ERC721/ERC721.sol";
 
 // Declaracion del Smart Contract
 contract FirstContract is ERC721 {
