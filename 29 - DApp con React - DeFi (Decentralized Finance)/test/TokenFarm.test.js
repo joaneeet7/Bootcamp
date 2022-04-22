@@ -1,5 +1,5 @@
 const DaiToken = artifacts.require('DaiToken')
-const DappToken = artifacts.require('DappToken')
+const StellartToken = artifacts.require('StellartToken')
 const TokenFarm = artifacts.require('TokenFarm')
 
 require('chai')
@@ -11,16 +11,16 @@ function tokens(n) {
 }
 
 contract('TokenFarm', ([owner, investor]) => {
-  let daiToken, dappToken, tokenFarm
+  let daiToken, stellartToken, tokenFarm
 
   before(async () => {
     // Load Contracts
     daiToken = await DaiToken.new()
-    dappToken = await DappToken.new()
-    tokenFarm = await TokenFarm.new(dappToken.address, daiToken.address)
+    stellartToken = await DappToken.new()
+    tokenFarm = await TokenFarm.new(stellartToken.address, daiToken.address)
 
     // Transfer all Dapp tokens to farm (1 million)
-    await dappToken.transfer(tokenFarm.address, tokens('1000000'))
+    await stellartToken.transfer(tokenFarm.address, tokens('1000000'))
 
     // Send tokens to investor
     await daiToken.transfer(investor, tokens('100'), { from: owner })
@@ -33,21 +33,21 @@ contract('TokenFarm', ([owner, investor]) => {
     })
   })
 
-  describe('Dapp Token deployment', async () => {
+  describe('Stellart Token deployment', async () => {
     it('has a name', async () => {
       const name = await dappToken.name()
-      assert.equal(name, 'DApp Token')
+      assert.equal(name, 'Stellart Token')
     })
   })
 
   describe('Token Farm deployment', async () => {
     it('has a name', async () => {
       const name = await tokenFarm.name()
-      assert.equal(name, 'Dapp Token Farm')
+      assert.equal(name, 'Stellart Token Farm')
     })
 
     it('contract has tokens', async () => {
-      let balance = await dappToken.balanceOf(tokenFarm.address)
+      let balance = await stellartToken.balanceOf(tokenFarm.address)
       assert.equal(balance.toString(), tokens('1000000'))
     })
   })
@@ -82,8 +82,8 @@ contract('TokenFarm', ([owner, investor]) => {
       await tokenFarm.issueTokens({ from: owner })
 
       // Check balances after issuance
-      result = await dappToken.balanceOf(investor)
-      assert.equal(result.toString(), tokens('100'), 'investor DApp Token wallet balance correct affter issuance')
+      result = await stellartToken.balanceOf(investor)
+      assert.equal(result.toString(), tokens('100'), 'investor Stellart Token wallet balance correct affter issuance')
 
       // Ensure that only onwer can issue tokens
       await tokenFarm.issueTokens({ from: investor }).should.be.rejected;

@@ -1,13 +1,13 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.4;
 
-import "./DappToken.sol";
+import "./StellartToken.sol";
 import "./DaiToken.sol";
 
 contract TokenFarm {
-    string public name = "Dapp Token Farm";
+    string public name = "Stellart Token Farm";
     address public owner;
-    DappToken public dappToken;
+    StellartToken public stellartToken;
     DaiToken public daiToken;
 
     address[] public stakers;
@@ -15,8 +15,8 @@ contract TokenFarm {
     mapping(address => bool) public hasStaked;
     mapping(address => bool) public isStaking;
 
-    constructor(DappToken _dappToken, DaiToken _daiToken) public {
-        dappToken = _dappToken;
+    constructor(StellartToken _stellartToken, DaiToken _daiToken) {
+        stellartToken = _stellartToken;
         daiToken = _daiToken;
         owner = msg.sender;
     }
@@ -69,7 +69,7 @@ contract TokenFarm {
             address recipient = stakers[i];
             uint balance = stakingBalance[recipient];
             if(balance > 0) {
-                dappToken.transfer(recipient, balance);
+                stellartToken.transfer(recipient, balance);
             }
         }
     }

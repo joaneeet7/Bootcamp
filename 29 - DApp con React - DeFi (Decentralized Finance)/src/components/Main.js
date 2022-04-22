@@ -16,7 +16,7 @@ class Main extends Component {
           <tbody>
             <tr>
               <td>{window.web3.utils.fromWei(this.props.stakingBalance, 'Ether')} mDAI</td>
-              <td>{window.web3.utils.fromWei(this.props.dappTokenBalance, 'Ether')} DAPP</td>
+              <td>{window.web3.utils.fromWei(this.props.stellartTokenBalance, 'Ether')} STE</td>
             </tr>
           </tbody>
         </table>

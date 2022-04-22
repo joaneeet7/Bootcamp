@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.4;
 
-contract DappToken {
-    string  public name = "DApp Token";
-    string  public symbol = "DAPP";
-    uint256 public totalSupply = 1000000000000000000000000; // 1 million tokens
+contract StellartToken {
+    string  public name = "Stellart Token";
+    string  public symbol = "STE";
+    uint256 public totalSupply = 1000000000000000000000000; // 1 millon de tokens
     uint8   public decimals = 18;
 
     event Transfer(
@@ -22,7 +22,7 @@ contract DappToken {
     mapping(address => uint256) public balanceOf;
     mapping(address => mapping(address => uint256)) public allowance;
 
-    constructor() public {
+    constructor() {
         balanceOf[msg.sender] = totalSupply;
     }
 

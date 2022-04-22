@@ -1,47 +1,50 @@
 import React, { Component } from 'react'
+import Navbar from './Navbar';
+import MyCarousel from './Carousel';
+import MyFooter from './Footer';
 import Web3 from 'web3'
 import DaiToken from '../abis/DaiToken.json'
-import DappToken from '../abis/DappToken.json'
+import StellartToken from '../abis/StellartToken.json'
 import TokenFarm from '../abis/TokenFarm.json'
 import Main from './Main'
 import './App.css'
 
 class App extends Component {
 
-  async componentWillMount() {
+  async componentDidMount() {
     // 1. Carga de Web3
     await this.loadWeb3()
     // 2. Carga de datos de la Blockchain
     await this.loadBlockchainData()
   }
 
-    // 1. Carga de Web3
-    async loadWeb3() {
-      if (window.ethereum) {
+  // 1. Carga de Web3
+  async loadWeb3() {
+    if (window.ethereum) {
         window.web3 = new Web3(window.ethereum)
-        await window.ethereum.enable()
+        const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+        console.log('Accounts: ', accounts)
       }
-      else if (window.web3) {
-        window.web3 = new Web3(window.web3.currentProvider)
-      }
-      else {
-        window.alert('¡Deberías considerar usar Metamask!')
-      }
+    else if (window.web3) {
+      window.web3 = new Web3(window.web3.currentProvider)
     }
-    
+    else {
+      window.alert('¡Deberías considerar usar Metamask!')
+    }
+  }
+
   // 2. Carga de datos de la Blockchain
   async loadBlockchainData() {
     const web3 = window.web3
     const accounts = await web3.eth.getAccounts()
     this.setState({ account: accounts[0] })
-    console.log('Account:', this.state.account)
     // Ganache -> 5777, Rinkeby -> 4, BSC -> 97
-    const networkId = await web3.eth.net.getId() 
+    const networkId = await web3.eth.net.getId()
     console.log('networkid:', networkId)
 
     // Carga de DaiToken
     const daiTokenData = DaiToken.networks[networkId]
-    if(daiTokenData) {
+    if (daiTokenData) {
       const daiToken = new web3.eth.Contract(DaiToken.abi, daiTokenData.address)
       this.setState({ daiToken })
       let daiTokenBalance = await daiToken.methods.balanceOf(this.state.account).call()
@@ -50,20 +53,20 @@ class App extends Component {
       window.alert('¡DaiToken no se ha desplegado en la red!')
     }
 
-    // Carga de DappToken
-    const dappTokenData = DappToken.networks[networkId]
-    if(dappTokenData) {
-      const dappToken = new web3.eth.Contract(DappToken.abi, dappTokenData.address)
-      this.setState({ dappToken })
-      let dappTokenBalance = await dappToken.methods.balanceOf(this.state.account).call()
-      this.setState({ dappTokenBalance: dappTokenBalance.toString() })
+    // Carga de StellartToken
+    const stellartTokenData = StellartToken.networks[networkId]
+    if (stellartTokenData) {
+      const stellartToken = new web3.eth.Contract(StellartToken.abi, stellartTokenData.address)
+      this.setState({ stellartToken })
+      let stellartTokenBalance = await stellartToken.methods.balanceOf(this.state.account).call()
+      this.setState({ stellartTokenBalance: stellartTokenBalance.toString() })
     } else {
-      window.alert('¡DappToken no se ha desplegado en la red!')
+      window.alert('¡Stellart Token no se ha desplegado en la red!')
     }
 
     // Carga de TokenFarm
     const tokenFarmData = TokenFarm.networks[networkId]
-    if(tokenFarmData) {
+    if (tokenFarmData) {
       const tokenFarm = new web3.eth.Contract(TokenFarm.abi, tokenFarmData.address)
       this.setState({ tokenFarm })
       let stakingBalance = await tokenFarm.methods.stakingBalance(this.state.account).call()
@@ -95,24 +98,24 @@ class App extends Component {
     this.state = {
       account: '0x0',
       daiToken: {},
-      dappToken: {},
+      stellartToken: {},
       tokenFarm: {},
       daiTokenBalance: '0',
-      dappTokenBalance: '0',
+      stellartTokenBalance: '0',
       stakingBalance: '0',
       loading: true
     }
   }
 
   render() {
-    
+
     let content
-    if(this.state.loading) {
+    if (this.state.loading) {
       content = <p id="loader" className="text-center">Loading...</p>
     } else {
       content = <Main
         daiTokenBalance={this.state.daiTokenBalance}
-        dappTokenBalance={this.state.dappTokenBalance}
+        stellartTokenBalance={this.state.stellartTokenBalance}
         stakingBalance={this.state.stakingBalance}
         stakeTokens={this.stakeTokens}
         unstakeTokens={this.unstakeTokens}
@@ -123,22 +126,14 @@ class App extends Component {
 
     return (
       <div>
-        <nav className="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-          <a
-            className="navbar-brand col-sm-3 col-md-2 mr-0"
-            href="https://blockstellart.com/rutas-de-aprendizaje/blockchain/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            DApp
-          </a>
-        </nav>
+        <Navbar account={this.state.account} />
+        <MyCarousel />
         <div className="container-fluid mt-5">
           <div className="row">
             <main role="main" className="col-lg-12 ml-auto mr-auto" style={{ maxWidth: '600px' }}>
               <div className="content mr-auto ml-auto">
                 <a
-                  href="http://www.dappuniversity.com/bootcamp"
+                  href="http://www.blockstellart.com"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -150,6 +145,7 @@ class App extends Component {
             </main>
           </div>
         </div>
+        <MyFooter />
       </div>
     );
   }

@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
 import './App.css';
 import Web3 from 'web3'
+import Navbar from './Navbar';
+import MyCarousel from './Carousel';
+import MyFooter from './Footer';
 import smart_contract from '../abis/loteria.json'
 import { Icon } from 'semantic-ui-react'
 import Swal from 'sweetalert2'
 
 class App extends Component {
 
-  async componentWillMount() {
+  async componentDidMount() {
     // 1. Carga de Web3
     await this.loadWeb3()
     // 2. Carga de datos de la Blockchain
@@ -18,7 +21,8 @@ class App extends Component {
   async loadWeb3() {
     if (window.ethereum) {
       window.web3 = new Web3(window.ethereum)
-      await window.ethereum.enable()
+      const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+      console.log('Accounts: ', accounts)
     }
     else if (window.web3) {
       window.web3 = new Web3(window.web3.currentProvider)
@@ -33,7 +37,6 @@ class App extends Component {
     const web3 = window.web3
     const accounts = await web3.eth.getAccounts()
     this.setState({ account: accounts[0] })
-    console.log('Account:', this.state.account)
     // Ganache -> 5777, Rinkeby -> 4, BSC -> 97
     const networkId = await web3.eth.net.getId()
     console.log('networkid:', networkId)
@@ -56,6 +59,8 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      account: '0x0',
+      loading: true,
       contract: null,
       errorMessage: ""
     }
@@ -93,17 +98,8 @@ class App extends Component {
   render() {
     return (
       <div>
-        <nav className="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-          <a
-            className="navbar-brand col-sm-3 col-md-2 mr-0"
-            href="https://blockstellart.com"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            DApp de Lotería
-          </a>
-        </nav>
-
+        <Navbar account={this.state.account} />
+        <MyCarousel />
         <div className="container-fluid mt-5">
           <div className="row">
             <main role="main" className="col-lg-12 d-flex text-center">
@@ -128,6 +124,7 @@ class App extends Component {
             </main>
           </div>
         </div>
+        <MyFooter />
       </div>
     );
   }
