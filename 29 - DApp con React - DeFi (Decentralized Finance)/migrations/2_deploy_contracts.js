@@ -3,21 +3,22 @@ const DaiToken = artifacts.require('DaiToken')
 const TokenFarm = artifacts.require('TokenFarm')
 
 module.exports = async function(deployer, network, accounts) {
-  // Deploy Mock DAI Token
+  
+  // Despliegue del Mock DAI Token
   await deployer.deploy(DaiToken)
   const daiToken = await DaiToken.deployed()
 
-  // Deploy Stellart Token
+  // Despliegue del Stellart Token
   await deployer.deploy(StellartToken)
   const stellartToken = await StellartToken.deployed()
 
-  // Deploy TokenFarm
+  // Despliegue del TokenFarm
   await deployer.deploy(TokenFarm, stellartToken.address, daiToken.address)
   const tokenFarm = await TokenFarm.deployed()
 
-  // Transfer all tokens to TokenFarm (1 million)
+  // Transferir todos los tokens a TokenFarm (1 millon de tokens)
   await stellartToken.transfer(tokenFarm.address, '1000000000000000000000000')
 
-  // Transfer 100 Mock DAI tokens to investor
+  // Transferencia de 100 tokens Mock DAI al inversor
   await daiToken.transfer(accounts[1], '100000000000000000000')
 }

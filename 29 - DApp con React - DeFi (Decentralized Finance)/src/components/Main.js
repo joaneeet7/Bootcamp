@@ -61,7 +61,7 @@ class Main extends Component {
                 event.preventDefault()
                 this.props.unstakeTokens()
               }}>
-              UN-STAKE...
+              RETIRAR STAKE
             </button>
           </div>
         </div>
