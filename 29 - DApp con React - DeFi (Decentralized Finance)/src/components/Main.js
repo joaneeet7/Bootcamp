@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import jam from '../jam.png'
+import React, { Component } from 'react';
+import jam from '../jam.png';
 
 class Main extends Component {
 
