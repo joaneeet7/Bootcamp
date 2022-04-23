@@ -3,7 +3,7 @@ import Navbar from './Navbar';
 import MyCarousel from './Carousel';
 import MyFooter from './Footer';
 import Web3 from 'web3'
-import DaiToken from '../abis/DaiToken.json'
+import JamToken from '../abis/JamToken.json'
 import StellartToken from '../abis/StellartToken.json'
 import TokenFarm from '../abis/TokenFarm.json'
 import Main from './Main'
@@ -42,15 +42,15 @@ class App extends Component {
     const networkId = await web3.eth.net.getId()
     console.log('networkid:', networkId)
 
-    // Carga de DaiToken
-    const daiTokenData = DaiToken.networks[networkId]
-    if (daiTokenData) {
-      const daiToken = new web3.eth.Contract(DaiToken.abi, daiTokenData.address)
-      this.setState({ daiToken })
-      let daiTokenBalance = await daiToken.methods.balanceOf(this.state.account).call()
-      this.setState({ daiTokenBalance: daiTokenBalance.toString() })
+    // Carga de JamToken
+    const jamTokenData = JamToken.networks[networkId]
+    if (jamTokenData) {
+      const jamToken = new web3.eth.Contract(JamToken.abi, jamTokenData.address)
+      this.setState({ jamToken })
+      let jamTokenBalance = await jamToken.methods.balanceOf(this.state.account).call()
+      this.setState({ jamTokenBalance: jamTokenBalance.toString() })
     } else {
-      window.alert('¡DaiToken no se ha desplegado en la red!')
+      window.alert('¡JamToken no se ha desplegado en la red!')
     }
 
     // Carga de StellartToken
@@ -79,7 +79,7 @@ class App extends Component {
 
   stakeTokens = (amount) => {
     this.setState({ loading: true })
-    this.state.daiToken.methods.approve(this.state.tokenFarm._address, amount).send({ from: this.state.account }).on('transactionHash', (hash) => {
+    this.state.jamToken.methods.approve(this.state.tokenFarm._address, amount).send({ from: this.state.account }).on('transactionHash', (hash) => {
       this.state.tokenFarm.methods.stakeTokens(amount).send({ from: this.state.account }).on('transactionHash', (hash) => {
         this.setState({ loading: false })
       })
@@ -97,10 +97,10 @@ class App extends Component {
     super(props)
     this.state = {
       account: '0x0',
-      daiToken: {},
+      jamToken: {},
       stellartToken: {},
       tokenFarm: {},
-      daiTokenBalance: '0',
+      jamTokenBalance: '0',
       stellartTokenBalance: '0',
       stakingBalance: '0',
       loading: true
@@ -114,7 +114,7 @@ class App extends Component {
       content = <p id="loader" className="text-center">Loading...</p>
     } else {
       content = <Main
-        daiTokenBalance={this.state.daiTokenBalance}
+        jamTokenBalance={this.state.jamTokenBalance}
         stellartTokenBalance={this.state.stellartTokenBalance}
         stakingBalance={this.state.stakingBalance}
         stakeTokens={this.stakeTokens}

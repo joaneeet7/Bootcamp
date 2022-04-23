@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import dai from '../dai.png'
+import jam from '../jam.png'
 
 class Main extends Component {
 
@@ -15,7 +15,7 @@ class Main extends Component {
           </thead>
           <tbody>
             <tr>
-              <td>{window.web3.utils.fromWei(this.props.stakingBalance, 'Ether')} mDAI</td>
+              <td>{window.web3.utils.fromWei(this.props.stakingBalance, 'Ether')} JAM</td>
               <td>{window.web3.utils.fromWei(this.props.stellartTokenBalance, 'Ether')} STE</td>
             </tr>
           </tbody>
@@ -35,7 +35,7 @@ class Main extends Component {
               <div>
                 <label className="float-left"><b>Stake Tokens</b></label>
                 <span className="float-right text-muted">
-                  Balance: {window.web3.utils.fromWei(this.props.daiTokenBalance, 'Ether')}
+                  Balance: {window.web3.utils.fromWei(this.props.jamTokenBalance, 'Ether')}
                 </span>
               </div>
               <div className="input-group mb-4">
@@ -47,8 +47,8 @@ class Main extends Component {
                   required />
                 <div className="input-group-append">
                   <div className="input-group-text">
-                    <img src={dai} height='32' alt="" />
-                    &nbsp;&nbsp;&nbsp; mDAI
+                    <img src={jam} height='32' alt="" />
+                    &nbsp;&nbsp;&nbsp; JAM
                   </div>
                 </div>
               </div>

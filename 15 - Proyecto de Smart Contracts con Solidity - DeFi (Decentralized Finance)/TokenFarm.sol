@@ -2,7 +2,7 @@
 pragma solidity ^0.8.4;
 
 import "./StellartToken.sol";
-import "./DaiToken.sol";
+import "./JamToken.sol";
 
 contract TokenFarm {
 
@@ -10,7 +10,7 @@ contract TokenFarm {
     string public name = "Stellart Token Farm";
     address public owner;
     StellartToken public stellartToken;
-    DaiToken public daiToken;
+    JamToken public jamToken;
 
     // Estructuras de datos
     address[] public stakers;
@@ -19,9 +19,9 @@ contract TokenFarm {
     mapping(address => bool) public isStaking;
 
     // Constructor
-    constructor(StellartToken _stellartToken, DaiToken _daiToken) {
+    constructor(StellartToken _stellartToken, JamToken _jamToken) {
         stellartToken = _stellartToken;
-        daiToken = _daiToken;
+        jamToken = _jamToken;
         owner = msg.sender;
     }
 
@@ -30,8 +30,8 @@ contract TokenFarm {
         // Se requiere una cantidad superior a 0
         require(_amount > 0, "La cantidad no puede ser 0");
 
-        //  Transferir tokens Mock Dai a este contrato para staking
-        daiToken.transferFrom(msg.sender, address(this), _amount);
+        //  Transferir tokens JAM Tokens a este contrato para staking
+        jamToken.transferFrom(msg.sender, address(this), _amount);
 
         // Actualizar el saldo del staking
         stakingBalance[msg.sender] = stakingBalance[msg.sender] + _amount;
@@ -54,8 +54,8 @@ contract TokenFarm {
         // Se requiere una cantidad superior a 0
         require(balance > 0, "El balance de staking no puede ser 0");
 
-        // Transferir tokens de Mock Dai a este contrato para staking
-        daiToken.transfer(msg.sender, balance);
+        // Transferir tokens de JAM Tokens a este contrato para staking
+        jamToken.transfer(msg.sender, balance);
 
         // Resetear el balance staking
         stakingBalance[msg.sender] = 0;
