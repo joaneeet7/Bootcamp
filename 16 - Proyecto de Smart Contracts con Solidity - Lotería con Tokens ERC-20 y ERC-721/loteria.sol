@@ -1,19 +1,25 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.4;
-import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts@4.5.0/token/ERC20/ERC20.sol";
+import "@openzeppelin/contracts@4.5.0/access/Ownable.sol";
+import "@openzeppelin/contracts@4.5.0/token/ERC721/ERC721.sol";
+
 
 contract loteria is ERC20, Ownable {
     
     // ============================================
     // Gestion de los tokens
     // ============================================  
+    
+    // Direccion del contrato NFT del proyecto
+    address public nft;
 
     // Constructor 
     constructor () ERC20("Loteria", "JA") {
         _mint(address(this), 1000);
+        nft = address(new mainERC721());
     }
-    
+
     // Ganador del premio de la loteria
     address public ganador;
 
@@ -41,9 +47,19 @@ contract loteria is ERC20, Ownable {
     function mint(uint256 _cantidad) public onlyOwner {
         _mint(address(this), _cantidad);
     }    
-    
+
+    // Registro del usuario 
+    mapping (address => address) public usuario_contract;
+    function registrar() internal {
+        address addr_personal_contract = address(new boletosNFTs(msg.sender, address(this), nft)); 
+        usuario_contract[msg.sender] = addr_personal_contract;
+    } 
+
     // Compra de tokens 
     function compraTokens(uint256 _numTokens) public payable {
+        if(usuario_contract[msg.sender] == address(0)){
+            registrar();
+        }
         // Establecimiento del coste de los tokens a comprar
         uint256 coste = precioTokens(_numTokens);
         // Evaluacion del dinero que el cliente paga por los tokens
@@ -85,7 +101,7 @@ contract loteria is ERC20, Ownable {
     uint randNonce = 0;
     // Boletos de la loteria generados 
     uint [] boletosComprados;    
-
+    
     // Compra de boletos de loteria
     function compraBoleto(uint _numBoletos) public {
         // Precio total de los boletos a comprar
@@ -109,14 +125,17 @@ contract loteria is ERC20, Ownable {
             boletosComprados.push(random);
             // Asignacion del ADN del boleto para la generacion de un ganador 
             ADNBoleto[random] = msg.sender;
+            // Creacion de un nuevo NFT para el numero de boleto
+            boletosNFTs(usuario_contract[msg.sender]).mintBoleto(msg.sender, random);
         }
+        
     }
     
     // Visualizacion de los boletos del usuario
-    function tusBoletos() public view returns (uint [] memory){
-        return idPersona_boletos[msg.sender];
+    function tusBoletos(address _propietario) public view returns (uint [] memory){
+        return idPersona_boletos[_propietario];
     }
-    
+
     // Generacion del ganador de la loteria
     function generarGanador() public onlyOwner {
         // Verificacion de la compra de mas 1 boleto o mas
@@ -133,5 +152,41 @@ contract loteria is ERC20, Ownable {
         payable(ganador).transfer(address(this).balance * 95 / 100);
         // Envio del 5% del premio de loteria al owner 
         payable(owner()).transfer(address(this).balance * 5 / 100);
+    }
+
+}
+
+// Smart Contract de NFTs del proyecto
+contract mainERC721 is ERC721 {
+    constructor() ERC721("Loteria", "STE"){}
+
+    function safeMint(address _propietario, uint _boleto) public {
+        _safeMint(_propietario, _boleto);
+    }
+}
+
+// Smart Contract para la generacion de NFTs para cada boleto generado
+contract boletosNFTs {
+
+    // Constructor del Smart Contract (hijo)
+    constructor (address _propietario, address _contratoPadre, address _contratoNFT) {
+        propietario.direccionPropietario = _propietario;
+        propietario.contratoPadre = _contratoPadre;
+        propietario.contratoNFT = _contratoNFT;
+        propietario.contratoUsuario = address(this);
+    }
+
+    // Datos relevantes del propietario del Smart Contract (hijo)
+    Owner public propietario;
+    struct Owner {
+        address direccionPropietario;
+        address contratoPadre;
+        address contratoNFT;
+        address contratoUsuario;
+    }
+
+    // Conversion de los numeros de los boletos de loteria a NFTs
+    function mintBoleto(address _propietario, uint _boleto) public {
+        mainERC721(propietario.contratoNFT).safeMint(_propietario, _boleto);
     }   
 }

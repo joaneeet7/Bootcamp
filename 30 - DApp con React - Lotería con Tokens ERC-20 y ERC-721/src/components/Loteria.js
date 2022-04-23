@@ -9,7 +9,7 @@ import Col from 'react-bootstrap/Col';
 import Navigation from './Navbar';
 import MyCarousel from './Carousel';
 
-class Tokens extends Component {
+class Loteria extends Component {
 
     async componentDidMount() {
         // 1. Carga de Web3
@@ -125,7 +125,9 @@ class Tokens extends Component {
     _tusBoletos = async () => {
         try {
             console.log("Visualizacion de tus boletos de loteria en ejecución...")
-            const _boletos = await this.state.contract.methods.tusBoletos().call()
+            const web3 = window.web3
+            const accounts = await web3.eth.getAccounts()
+            const _boletos = await this.state.contract.methods.tusBoletos(accounts[0]).call()
 
             // Balance de tokens
             Swal.fire({
@@ -217,4 +219,4 @@ class Tokens extends Component {
     }
 }
 
-export default Tokens;
+export default Loteria;
