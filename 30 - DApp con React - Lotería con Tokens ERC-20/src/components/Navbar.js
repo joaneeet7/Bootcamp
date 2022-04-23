@@ -10,18 +10,16 @@ class Navbar extends Component {
                     rel="noopener noreferrer">
                     DApp
                 </a>
-                <ul className="navbar-nav px-3">
-                    <li className="nav-item text-nowrap d-none d-sm-none d-sm-block">
-                        <a href={`https://etherscan.io/address/${this.props.account}`}
+                <span className="navbar-text">
+                    <a href={`https://etherscan.io/address/${this.props.account}`}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="button nav-button btn-primary">
-                            <p id="account" className="text-white">
+                            <p id="account">
                             {this.props.account.slice(0, 10) + '...' + this.props.account.slice(32, 42)}
                             </p>
                         </a>
-                    </li>
-                </ul>
+                    </span>
             </nav>
         );
     }

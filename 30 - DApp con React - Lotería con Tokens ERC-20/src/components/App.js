@@ -5,8 +5,10 @@ import Navbar from './Navbar';
 import MyCarousel from './Carousel';
 import MyFooter from './Footer';
 import smart_contract from '../abis/loteria.json'
-import { Icon } from 'semantic-ui-react'
 import Swal from 'sweetalert2'
+import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
 
 class App extends Component {
 
@@ -66,6 +68,89 @@ class App extends Component {
     }
   }
 
+  // Balance de tokens de un usuario
+  _balanceTokens = async () => {
+    try {
+      console.log("Balance de tokens en ejecución...")
+      const web3 = window.web3
+      const accounts = await web3.eth.getAccounts()
+      const _balance = await this.state.contract.methods.balanceTokens(accounts[0]).call()
+
+      // Balance de tokens
+      Swal.fire({
+        title: `Balance de tokens del usuario:`,
+        text: `${_balance} tokens`,
+        width: 800,
+        icon: 'info',
+        padding: '3em',
+        backdrop: `
+            rgba(15, 238, 168,0.2)
+            left top
+            no-repeat
+          `
+      })
+
+    } catch (err) {
+      this.setState({ errorMessage: err.message })
+    } finally {
+      this.setState({ loading: false })
+    }
+  }
+
+  // Balance de tokens del Smart Contract
+  _balanceTokensSC = async () => {
+    try {
+      console.log("Balance de tokens del Smart Contract en ejecución...")
+      const _balanceTokensSC = await this.state.contract.methods.balanceTokensSC().call()
+
+      // Balance de tokens
+      Swal.fire({
+        title: 'Balance de tokens del Smart Contract:',
+        text: `${_balanceTokensSC} tokens`,
+        width: 800,
+        icon: 'info',
+        padding: '3em',
+        backdrop: `
+            rgba(15, 238, 168,0.2)
+            left top
+            no-repeat
+          `
+      })
+
+    } catch (err) {
+      this.setState({ errorMessage: err.message })
+    } finally {
+      this.setState({ loading: false })
+    }
+  }
+
+  // Balance de ethers del Smart Contract
+  _balanceEthersSC = async () => {
+    try {
+      console.log("Balance de ethers del Smart Contract en ejecución...")
+      const _balanceEthersSC = await this.state.contract.methods.balanceEthersSC().call()
+      
+      // Balance de ethers
+      Swal.fire({
+        title: 'Balance de ethers del Smart Contract:',
+        text: `${_balanceEthersSC} ethers`,
+        width: 800,
+        icon: 'info',
+        padding: '3em',
+        backdrop: `
+            rgba(15, 238, 168,0.2)
+            left top
+            no-repeat
+          `
+      })
+
+    } catch (err) {
+      this.setState({ errorMessage: err.message })
+    } finally {
+      this.setState({ loading: false })
+    }
+  }
+
   // Compra de tokens ERC-20
   _compraTokens = async (_numTokens) => {
     try {
@@ -95,6 +180,157 @@ class App extends Component {
     }
   }
 
+  // Devolucion de tokens ERC-20
+  _devolverTokens = async (_numTokens) => {
+    try {
+      console.log("Devolucion de tokens en ejecución...")
+      const web3 = window.web3
+      const accounts = await web3.eth.getAccounts()
+      await this.state.contract.methods.devolverTokens(_numTokens).send({ from: accounts[0]})
+
+      // Notificacion de devolucion
+      Swal.fire({
+        title: '¡Devolución de tokens realizada!',
+        text: `Has devuelto ${_numTokens} token/s`,
+        width: 800,
+        icon: 'warning',
+        padding: '3em',
+        backdrop: `
+            rgba(15, 238, 168,0.2)
+            left top
+            no-repeat
+          `
+      })
+    } catch (err) {
+      this.setState({ errorMessage: err.message })
+    } finally {
+      this.setState({ loading: false })
+    }
+  }
+
+  // Precio del boleto de loteria
+  _precioBoleto = async () => {
+    try {
+      console.log("Precio del boleto de loteria en ejecución...")
+      const _precio = await this.state.contract.methods.precioBoleto().call()
+      
+      // Precio del boleto
+      Swal.fire({
+        title: `El precio del boleto de lotería es de ${_precio} ethers`,
+        width: 800,
+        icon: 'info',
+        padding: '3em',
+        backdrop: `
+            rgba(15, 238, 168,0.2)
+            left top
+            no-repeat
+          `
+      })
+
+    } catch (err) {
+      this.setState({ errorMessage: err.message })
+    } finally {
+      this.setState({ loading: false })
+    }
+  }
+
+  // Compra de boletos de loteria
+  _compraBoleltos = async (_numBoletos) => {
+    try {
+      console.log("Compra de boletos de loteria en ejecución...")
+      const web3 = window.web3
+      const accounts = await web3.eth.getAccounts()
+      await this.state.contract.methods.compraBoleto(_numBoletos).send({ from: accounts[0] })
+
+      // Notificacion de compra
+      Swal.fire({
+        title: 'Compra de boletos realizada, ¡¡mucha suerte!!',
+        text: `Has comprado ${_numBoletos} boletos`,
+        width: 800,
+        icon: 'success',
+        padding: '3em',
+        backdrop: `
+            rgba(15, 238, 168,0.2)
+            left top
+            no-repeat
+          `
+      })
+    } catch (err) {
+      this.setState({ errorMessage: err.message })
+    } finally {
+      this.setState({ loading: false })
+    }
+  }
+
+  // Visualizacion de los numeros de loteria
+  _tusBoletos = async () => {
+    try {
+      console.log("Visualizacion de tus boletos de loteria en ejecución...")
+      const _boletos = await this.state.contract.methods.tusBoletos().call()
+      
+      // Balance de tokens
+      Swal.fire({
+        title: `Tus boletos son:`,
+        text: `${_boletos}`,
+        width: 800,
+        icon: 'info',
+        padding: '3em',
+        backdrop: `
+            rgba(15, 238, 168,0.2)
+            left top
+            no-repeat
+          `
+      })
+
+    } catch (err) {
+      this.setState({ errorMessage: err.message })
+    } finally {
+      this.setState({ loading: false })
+    }
+  }
+
+  // Generacion del ganador de la loteria
+  _generarGanador = async () => {
+    try {
+      console.log("Generacion del ganador de la loteria en ejecución...")
+      const web3 = window.web3
+      const accounts = await web3.eth.getAccounts()
+      await this.state.contract.methods.generarGanador().send({ from: accounts[0] })
+
+    } catch (err) {
+      this.setState({ errorMessage: err.message })
+    } finally {
+      this.setState({ loading: false })
+    }
+  }
+
+  // Visualizacion del ganador de la loteria
+  _ganador = async () => {
+    try {
+      console.log("Visualización del ganador de la loteria en ejecución...")
+      const winner = await this.state.contract.methods.ganador().call()
+ 
+      // Direccion del ganador de la loteria
+      Swal.fire({
+        title: 'El ganador de la lotería es:',
+        text: `${winner}`,
+        width: 800,
+        icon: 'info',
+        padding: '3em',
+        backdrop: `
+            rgba(15, 238, 168,0.2)
+            left top
+            no-repeat
+          `
+      })
+
+    } catch (err) {
+      this.setState({ errorMessage: err.message })
+    } finally {
+      this.setState({ loading: false })
+    }
+  }
+
   render() {
     return (
       <div>
@@ -104,7 +340,58 @@ class App extends Component {
           <div className="row">
             <main role="main" className="col-lg-12 d-flex text-center">
               <div className="content mr-auto ml-auto">
-                <h3> <Icon circular inverted color='red' name='dollar' /> Compra de tokens ERC-20</h3>
+
+                <h1>Gestión de los tokens</h1>
+                &nbsp;
+                <Container>
+                  <Row>
+                    <Col>
+                      <h3>Tokens usuario</h3>
+                      <form onSubmit={(event) => {
+                        event.preventDefault()
+                        this._balanceTokens()
+                      }
+                      }>
+
+                        <input type="submit"
+                          className='bbtn btn-block btn-success btn-sm'
+                          value='BALANCE DE TOKENS' />
+                      </form>
+                    </Col>
+
+                    <Col>
+                      <h3>Tokens SC </h3>
+                      <form onSubmit={(event) => {
+                        event.preventDefault()
+                        this._balanceTokensSC()
+                      }
+                      }>
+
+                        <input type="submit"
+                          className='bbtn btn-block btn-info btn-sm'
+                          value='BALANCE DE TOKENS (SC)' />
+                      </form>
+                    </Col>
+
+                    <Col>
+                      <h3>Ethers SC </h3>
+                      <form onSubmit={(event) => {
+                        event.preventDefault()
+                        this._balanceEthersSC()
+                      }
+                      }>
+
+                        <input type="submit"
+                          className='bbtn btn-block btn-danger btn-sm'
+                          value='BALANCE DE ETHERS (SC)' />
+                      </form>
+                    </Col>
+                  </Row>
+                </Container>
+
+                &nbsp;
+
+                <h3>Compra de tokens ERC-20</h3>
                 <form onSubmit={(event) => {
                   event.preventDefault()
                   const cantidad = this._numTokens.value
@@ -120,6 +407,106 @@ class App extends Component {
                     className='bbtn btn-block btn-primary btn-sm'
                     value='COMPRAR TOKENS' />
                 </form>
+                
+                &nbsp;
+
+                <h3>Devolución de tokens ERC-20</h3>
+                <form onSubmit={(event) => {
+                  event.preventDefault()
+                  const cantidad = this._numTokensDevolver.value
+                  this._devolverTokens(cantidad)
+                }
+                }>
+                  <input type="number"
+                    className="form-control mb-1"
+                    placeholder="Cantidad de tokens a devolver"
+                    ref={(input) => this._numTokensDevolver = input} />
+
+                  <input type="submit"
+                    className='bbtn btn-block btn-warning btn-sm'
+                    value='DEVOLVER TOKENS' />
+                </form>
+
+                &nbsp;
+
+                <h1>Gestión de la Lotería</h1>
+
+                <h3>Compra de boletos </h3>
+                <form onSubmit={(event) => {
+                  event.preventDefault()
+                  const cantidad = this._numBoletos.value
+                  this._compraBoleltos(cantidad)
+                }
+                }>
+                  <input type="number"
+                    className="form-control mb-1"
+                    placeholder="Cantidad de boletos a comprar"
+                    ref={(input) => this._numBoletos = input} />
+
+                  <input type="submit"
+                    className='bbtn btn-block btn-primary btn-sm'
+                    value='COMPRAR BOLETOS' />
+                </form>
+
+                <Container>
+                  <Row>
+
+                    <Col>
+                      <h3>Precio Boleto </h3>
+                      <form onSubmit={(event) => {
+                        event.preventDefault()
+                        this._precioBoleto()
+                      }
+                      }>
+
+                        <input type="submit"
+                          className='bbtn btn-block btn-danger btn-sm'
+                          value='PRECIO BOLETO' />
+                      </form>
+                    </Col>
+
+                    <Col>
+                      <h3>Tus Boletos </h3>
+                      <form onSubmit={(event) => {
+                        event.preventDefault()
+                        this._tusBoletos()
+                      }
+                      }>
+
+                        <input type="submit"
+                          className='bbtn btn-block btn-success btn-sm'
+                          value='TUS BOLETO' />
+                      </form>
+                    </Col>
+
+                  </Row>
+                </Container>
+                &nbsp;
+                <h1>Generación de un ganador  </h1>
+
+                <form onSubmit={(event) => {
+                  event.preventDefault()
+                  this._generarGanador()
+                }
+                }>
+
+                  <input type="submit"
+                    className='bbtn btn-block btn-info btn-sm'
+                    value='GENERAR GANADOR' />
+                </form>
+
+                <h3> Visualizar ganador </h3>
+                <form onSubmit={(event) => {
+                  event.preventDefault()
+                  this._ganador()
+                }
+                }>
+
+                  <input type="submit"
+                    className='bbtn btn-block btn-success btn-sm'
+                    value='GANADOR' />
+                </form>
+
               </div>
             </main>
           </div>

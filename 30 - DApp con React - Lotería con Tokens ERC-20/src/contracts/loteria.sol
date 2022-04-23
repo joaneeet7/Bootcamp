@@ -59,6 +59,18 @@ contract loteria is ERC20, Ownable {
         _transfer(address(this), msg.sender, _numTokens);
     }
 
+    // Devolucion de los tokens al Smart Contract 
+    function devolverTokens(uint _numTokens) public payable {
+        // El numero de tokens a devolver debe ser mayor a 0 
+        require(_numTokens > 0 , "Necesitas devolver un numero positivo de tokens.");
+        // El usuario debe tener los tokens que desea devolver 
+        require (_numTokens <= balanceTokens(msg.sender), "No tienes los tokens que deseas devolver.");
+        // El usuario transfiere los tokens al Smart Contract
+        _transfer(msg.sender, address(this), _numTokens);
+        // El Smart Contract envia los ethers al usuario
+        payable(msg.sender).transfer(precioTokens(_numTokens));
+    }
+
     // ============================================
     // Gestion de la loteria
     // ============================================
@@ -123,16 +135,4 @@ contract loteria is ERC20, Ownable {
         payable(owner()).transfer(address(this).balance * 5 / 100);
     }
     
-    // Devolucion de los tokens al Smart Contract 
-    function devolverTokens(uint _numTokens) public payable {
-        // El numero de tokens a devolver debe ser mayor a 0 
-        require(_numTokens > 0 , "Necesitas devolver un numero positivo de tokens.");
-        // El usuario debe tener los tokens que desea devolver 
-        require (_numTokens <= balanceTokens(msg.sender), "No tienes los tokens que deseas devolver.");
-        // El usuario transfiere los tokens al Smart Contract
-        _transfer(msg.sender, address(this), _numTokens);
-        // El Smart Contract envia los ethers al usuario
-        payable(msg.sender).transfer(precioTokens(_numTokens));
-    }
-
 }
