@@ -8,7 +8,7 @@ contract padre {
 
     // Emisión de los nuevos contratos inteligentes 
     function Factory() public {
-        address addr_personal_contract = address(new hijo(msg.sender));
+        address addr_personal_contract = address(new hijo(msg.sender, address(this)));
         personal_contract[msg.sender] = addr_personal_contract;
     }
 }
@@ -17,9 +17,9 @@ contract padre {
 contract hijo {
 
     // Datos recibidos al nuevo Smart Contract
-    constructor (address _account){
+    constructor (address _account, address _accountSC){
         propietario._owner = _account;
-        propietario._smartcontractPadre = address(this);
+        propietario._smartcontractPadre = _accountSC;
     }
 
     // Estructuras de datos del propietario
