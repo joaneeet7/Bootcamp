@@ -2,6 +2,7 @@
 pragma solidity ^0.8.4;
 
 contract Food {
+    
     // Estructura de datos 
     struct dinnerPlate {
         string name;

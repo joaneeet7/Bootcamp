@@ -1,17 +1,18 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.4;
 
-import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
-import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
+import "@openzeppelin/contracts@4.5.0/token/ERC721/IERC721.sol";
+import "@openzeppelin/contracts@4.5.0/security/ReentrancyGuard.sol";
 import "hardhat/console.sol";
 
 contract Marketplace is ReentrancyGuard {
 
     // Variables
-    address payable public immutable feeAccount; // the account that receives fees
-    uint public immutable feePercent; // the fee percentage on sales 
+    address payable public immutable feeAccount; // la cuenta que recibe las tasas (fees)
+    uint public immutable feePercent; // el porcentaje de la tasa (fee) sobre las ventas 
     uint public itemCount; 
 
+    // Estructura de datos para el item publicado
     struct Item {
         uint itemId;
         IERC721 nft;
@@ -21,9 +22,10 @@ contract Marketplace is ReentrancyGuard {
         bool sold;
     }
 
-    // itemId -> Item
+    // Relacion entre itemId -> Item
     mapping(uint => Item) public items;
 
+    // Evento a emitir en la publicacion de una nueva oferta
     event Offered(
         uint itemId,
         address indexed nft,
@@ -31,6 +33,8 @@ contract Marketplace is ReentrancyGuard {
         uint price,
         address indexed seller
     );
+
+    // Evento a emitir en la compra de un item
     event Bought(
         uint itemId,
         address indexed nft,
@@ -40,19 +44,21 @@ contract Marketplace is ReentrancyGuard {
         address indexed buyer
     );
 
+    // Constructor
     constructor(uint _feePercent) {
         feeAccount = payable(msg.sender);
         feePercent = _feePercent;
     }
 
-    // Make item to offer on the marketplace
+    // Crear un item para ofrecer en el mercado
     function makeItem(IERC721 _nft, uint _tokenId, uint _price) external nonReentrant {
-        require(_price > 0, "Price must be greater than zero");
-        // increment itemCount
+        // Requisito del precio del item
+        require(_price > 0, "El precio debe ser superior a cero");
+        // Incremento del itemCount
         itemCount ++;
-        // transfer nft
+        // Transferencia del nft
         _nft.transferFrom(msg.sender, address(this), _tokenId);
-        // add new item to items mapping
+        // Añadir un nuevo item a la estructura de datos de items
         items[itemCount] = Item (
             itemCount,
             _nft,
@@ -61,7 +67,7 @@ contract Marketplace is ReentrancyGuard {
             payable(msg.sender),
             false
         );
-        // emit Offered event
+        // Emision del evento (nuevo item ofrecido al mercado)
         emit Offered(
             itemCount,
             address(_nft),
@@ -71,20 +77,21 @@ contract Marketplace is ReentrancyGuard {
         );
     }
 
+    // Comprar un item en el Marketplace de NFTs
     function purchaseItem(uint _itemId) external payable nonReentrant {
         uint _totalPrice = getTotalPrice(_itemId);
         Item storage item = items[_itemId];
-        require(_itemId > 0 && _itemId <= itemCount, "item doesn't exist");
-        require(msg.value >= _totalPrice, "not enough ether to cover item price and market fee");
-        require(!item.sold, "item already sold");
-        // pay seller and feeAccount
+        require(_itemId > 0 && _itemId <= itemCount, "El articulo no existe.");
+        require(msg.value >= _totalPrice, "No tienes suficiente ether para cubrir el precio del articulo y la tasa de mercado.");
+        require(!item.sold, "Item ya vendido.");
+        // Pagar al vendedor y a las tasas
         item.seller.transfer(item.price);
         feeAccount.transfer(_totalPrice - item.price);
-        // update item to sold
+        // Actualizar el item a vendido
         item.sold = true;
-        // transfer nft to buyer
+        // Transferencia del NFT al comprador
         item.nft.transferFrom(address(this), msg.sender, item.tokenId);
-        // emit Bought event
+        // Emision del evento (item comprado)
         emit Bought(
             _itemId,
             address(item.nft),
@@ -94,6 +101,8 @@ contract Marketplace is ReentrancyGuard {
             msg.sender
         );
     }
+
+    // Obtencion del precio tota
     function getTotalPrice(uint _itemId) view public returns(uint){
         return((items[_itemId].price*(100 + feePercent))/100);
     }

@@ -2,6 +2,7 @@
 pragma solidity ^0.8.4;
 
 contract loops_conditionals {
+    
     // Suma de los 10 primeros numeros a partir del numero introducido
     function sum (uint256 _number) public pure returns (uint256){
         uint256 aux_sum = 0;

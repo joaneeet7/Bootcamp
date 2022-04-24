@@ -2,6 +2,7 @@
 pragma solidity ^0.8.4;
 
 contract variables_modifiers {
+    
     // Valores enteros sin signos (uint)
     uint256 a;
     uint256 b = 3;
@@ -13,8 +14,8 @@ contract variables_modifiers {
 
     // Variable string
     string str;
-    string public str_public = "This is public";
-    string private str_private = "This is private";
+    string public str_public = "Esto es publico";
+    string private str_private = "Esto es privado";
 
     // Variable booleana
     bool boolean;
@@ -24,7 +25,7 @@ contract variables_modifiers {
     // Variable bytes
     bytes32 first_bytes;
     bytes4 second_bytes;
-    bytes32 public hashing = keccak256(abi.encodePacked("Hi"));
+    bytes32 public hashing = keccak256(abi.encodePacked("Hola"));
 
     // Variable address
     address my_address;
