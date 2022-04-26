@@ -15,6 +15,10 @@ module.exports = {
     },
     hardhat: {
     },
+    matic: {
+      url: "https://rpc-mumbai.maticvigil.com",
+      accounts: ["privatekey"]
+    }
 
   },
 };

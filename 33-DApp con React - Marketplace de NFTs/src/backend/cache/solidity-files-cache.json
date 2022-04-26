@@ -1,7 +1,7 @@
 {
   "_format": "hh-sol-cache-2",
   "files": {
-    "/Users/joan_amengual/GitHub/Bootcamp/31 - DApp con React - Marketplace de NFTs/src/backend/contracts/Marketplace.sol": {
+    "/Users/joan_amengual/GitHub/Bootcamp/33-DApp con React - Marketplace de NFTs/src/backend/contracts/Marketplace.sol": {
       "lastModificationDate": 1650789410754,
       "contentHash": "30e4d8c75e4e4154b39b34d1d71d1f65",
       "sourceName": "src/backend/contracts/Marketplace.sol",
@@ -40,8 +40,8 @@
         "Marketplace"
       ]
     },
-    "/Users/joan_amengual/GitHub/Bootcamp/31 - DApp con React - Marketplace de NFTs/node_modules/@openzeppelin/contracts/token/ERC721/IERC721.sol": {
-      "lastModificationDate": 1649956235455,
+    "/Users/joan_amengual/GitHub/Bootcamp/33-DApp con React - Marketplace de NFTs/node_modules/@openzeppelin/contracts/token/ERC721/IERC721.sol": {
+      "lastModificationDate": 1650789762487,
       "contentHash": "27d219ec6f69478d065fdbfa7931da68",
       "sourceName": "@openzeppelin/contracts/token/ERC721/IERC721.sol",
       "solcConfig": {
@@ -77,8 +77,8 @@
         "IERC721"
       ]
     },
-    "/Users/joan_amengual/GitHub/Bootcamp/31 - DApp con React - Marketplace de NFTs/node_modules/@openzeppelin/contracts/security/ReentrancyGuard.sol": {
-      "lastModificationDate": 1649956235641,
+    "/Users/joan_amengual/GitHub/Bootcamp/33-DApp con React - Marketplace de NFTs/node_modules/@openzeppelin/contracts/security/ReentrancyGuard.sol": {
+      "lastModificationDate": 1650789762738,
       "contentHash": "92f9448b23a90ea3bb932ee55cc3ccce",
       "sourceName": "@openzeppelin/contracts/security/ReentrancyGuard.sol",
       "solcConfig": {
@@ -112,8 +112,8 @@
         "ReentrancyGuard"
       ]
     },
-    "/Users/joan_amengual/GitHub/Bootcamp/31 - DApp con React - Marketplace de NFTs/node_modules/hardhat/console.sol": {
-      "lastModificationDate": 1649956237554,
+    "/Users/joan_amengual/GitHub/Bootcamp/33-DApp con React - Marketplace de NFTs/node_modules/hardhat/console.sol": {
+      "lastModificationDate": 1650789764019,
       "contentHash": "cc4777addd464ea56fa35b1c45df0591",
       "sourceName": "hardhat/console.sol",
       "solcConfig": {
@@ -147,8 +147,8 @@
         "console"
       ]
     },
-    "/Users/joan_amengual/GitHub/Bootcamp/31 - DApp con React - Marketplace de NFTs/node_modules/@openzeppelin/contracts/utils/introspection/IERC165.sol": {
-      "lastModificationDate": 1649956235361,
+    "/Users/joan_amengual/GitHub/Bootcamp/33-DApp con React - Marketplace de NFTs/node_modules/@openzeppelin/contracts/utils/introspection/IERC165.sol": {
+      "lastModificationDate": 1650789762434,
       "contentHash": "03e6768535ac4da0e9756f1d8a4a018a",
       "sourceName": "@openzeppelin/contracts/utils/introspection/IERC165.sol",
       "solcConfig": {
@@ -182,8 +182,8 @@
         "IERC165"
       ]
     },
-    "/Users/joan_amengual/GitHub/Bootcamp/31 - DApp con React - Marketplace de NFTs/node_modules/@openzeppelin/contracts/token/ERC721/extensions/IERC721Metadata.sol": {
-      "lastModificationDate": 1649956235467,
+    "/Users/joan_amengual/GitHub/Bootcamp/33-DApp con React - Marketplace de NFTs/node_modules/@openzeppelin/contracts/token/ERC721/extensions/IERC721Metadata.sol": {
+      "lastModificationDate": 1650789762505,
       "contentHash": "efbc0d15b80a74e34dbe8da0f3e879bb",
       "sourceName": "@openzeppelin/contracts/token/ERC721/extensions/IERC721Metadata.sol",
       "solcConfig": {
@@ -219,8 +219,8 @@
         "IERC721Metadata"
       ]
     },
-    "/Users/joan_amengual/GitHub/Bootcamp/31 - DApp con React - Marketplace de NFTs/node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol": {
-      "lastModificationDate": 1649956235003,
+    "/Users/joan_amengual/GitHub/Bootcamp/33-DApp con React - Marketplace de NFTs/node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol": {
+      "lastModificationDate": 1650789762122,
       "contentHash": "49295810dc45f300e5f84b4b50d88a59",
       "sourceName": "@openzeppelin/contracts/token/ERC721/ERC721.sol",
       "solcConfig": {
@@ -262,8 +262,8 @@
         "ERC721"
       ]
     },
-    "/Users/joan_amengual/GitHub/Bootcamp/31 - DApp con React - Marketplace de NFTs/node_modules/@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol": {
-      "lastModificationDate": 1649956235475,
+    "/Users/joan_amengual/GitHub/Bootcamp/33-DApp con React - Marketplace de NFTs/node_modules/@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol": {
+      "lastModificationDate": 1650789762516,
       "contentHash": "592df588492d45fdcf46b3cb608c0fbf",
       "sourceName": "@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol",
       "solcConfig": {
@@ -297,8 +297,8 @@
         "IERC721Receiver"
       ]
     },
-    "/Users/joan_amengual/GitHub/Bootcamp/31 - DApp con React - Marketplace de NFTs/node_modules/@openzeppelin/contracts/utils/Address.sol": {
-      "lastModificationDate": 1649956234055,
+    "/Users/joan_amengual/GitHub/Bootcamp/33-DApp con React - Marketplace de NFTs/node_modules/@openzeppelin/contracts/utils/Address.sol": {
+      "lastModificationDate": 1650789761573,
       "contentHash": "ad714a6368ee7d43cded6bbe8af0b155",
       "sourceName": "@openzeppelin/contracts/utils/Address.sol",
       "solcConfig": {
@@ -332,8 +332,8 @@
         "Address"
       ]
     },
-    "/Users/joan_amengual/GitHub/Bootcamp/31 - DApp con React - Marketplace de NFTs/node_modules/@openzeppelin/contracts/utils/Context.sol": {
-      "lastModificationDate": 1649956234235,
+    "/Users/joan_amengual/GitHub/Bootcamp/33-DApp con React - Marketplace de NFTs/node_modules/@openzeppelin/contracts/utils/Context.sol": {
+      "lastModificationDate": 1650789761647,
       "contentHash": "5f2c5c4b6af2dd4551027144797bc8be",
       "sourceName": "@openzeppelin/contracts/utils/Context.sol",
       "solcConfig": {
@@ -367,8 +367,8 @@
         "Context"
       ]
     },
-    "/Users/joan_amengual/GitHub/Bootcamp/31 - DApp con React - Marketplace de NFTs/node_modules/@openzeppelin/contracts/utils/Strings.sol": {
-      "lastModificationDate": 1649956235703,
+    "/Users/joan_amengual/GitHub/Bootcamp/33-DApp con React - Marketplace de NFTs/node_modules/@openzeppelin/contracts/utils/Strings.sol": {
+      "lastModificationDate": 1650789762876,
       "contentHash": "9c54c6c065d9e590fdcdd72c451425b9",
       "sourceName": "@openzeppelin/contracts/utils/Strings.sol",
       "solcConfig": {
@@ -402,8 +402,8 @@
         "Strings"
       ]
     },
-    "/Users/joan_amengual/GitHub/Bootcamp/31 - DApp con React - Marketplace de NFTs/node_modules/@openzeppelin/contracts/utils/introspection/ERC165.sol": {
-      "lastModificationDate": 1649956234738,
+    "/Users/joan_amengual/GitHub/Bootcamp/33-DApp con React - Marketplace de NFTs/node_modules/@openzeppelin/contracts/utils/introspection/ERC165.sol": {
+      "lastModificationDate": 1650789761914,
       "contentHash": "0e7db055ce108f9da7bb6686a00287c0",
       "sourceName": "@openzeppelin/contracts/utils/introspection/ERC165.sol",
       "solcConfig": {
@@ -439,8 +439,8 @@
         "ERC165"
       ]
     },
-    "/Users/joan_amengual/GitHub/Bootcamp/31 - DApp con React - Marketplace de NFTs/node_modules/@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol": {
-      "lastModificationDate": 1649956235106,
+    "/Users/joan_amengual/GitHub/Bootcamp/33-DApp con React - Marketplace de NFTs/node_modules/@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol": {
+      "lastModificationDate": 1650789762217,
       "contentHash": "580a443491d9d70eb064b0130fc3cd01",
       "sourceName": "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol",
       "solcConfig": {
@@ -476,7 +476,7 @@
         "ERC721URIStorage"
       ]
     },
-    "/Users/joan_amengual/GitHub/Bootcamp/31 - DApp con React - Marketplace de NFTs/src/backend/contracts/NFT.sol": {
+    "/Users/joan_amengual/GitHub/Bootcamp/33-DApp con React - Marketplace de NFTs/src/backend/contracts/NFT.sol": {
       "lastModificationDate": 1649737699720,
       "contentHash": "70165c5f53b9f8d5f8671b9d55310ff4",
       "sourceName": "src/backend/contracts/NFT.sol",
