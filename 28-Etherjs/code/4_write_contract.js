@@ -3,10 +3,10 @@ const { ethers } = require("ethers");
 const INFURA_ID = ''
 const provider = new ethers.providers.JsonRpcProvider(`https://kovan.infura.io/v3/${INFURA_ID}`)
 
-const account1 = '' // Your account address 1
-const account2 = '' // Your account address 2
+const account1 = '' // account (address 1)
+const account2 = '' // account (address 2)
 
-const privateKey1 = '' // Private key of account 1
+const privateKey1 = '' // Private key (account 1)
 const wallet = new ethers.Wallet(privateKey1, provider)
 
 const ERC20_ABI = [
@@ -33,8 +33,8 @@ const main = async () => {
     const balanceOfSender = await contract.balanceOf(account1)
     const balanceOfReciever = await contract.balanceOf(account2)
 
-    console.log(`\nBalance of sender: ${balanceOfSender}`)
-    console.log(`Balance of reciever: ${balanceOfReciever}\n`)
+    console.log(`\nBalance (sender): ${balanceOfSender}`)
+    console.log(`Balance (reciever): ${balanceOfReciever}\n`)
 }
 
 main()

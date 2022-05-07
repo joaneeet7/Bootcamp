@@ -1,69 +1,55 @@
-# Ethers.js by Example
-Learn how to use ethers.js from these examples
-
-## Technology Stack & Tools
-
-- Javascript (Writing scripts)
-- [Ethers.js](https://docs.ethers.io/v5/) (Blockchain Interaction)
-- [Node.js](https://nodejs.org/en/) (To run our scripts and install ethers.js)
-- [Infura](https://infura.io/) (Node provider)
-
-## Setting Up
-### 1. Clone/Download the Repository
-
-### 2. Install Dependencies:
+### 1. Instalación de dependencias
 ```
 $ npm install
 ```
 
 ## Ethers.js scripts
 
-### 1_accounts.js - Reads balance of ether of wallet address
-- Input your infura project ID 
+### 1_accounts.js - Lee el balance de ether de una dirección de la wallet
+- Input: ID Infura 
 ```
-$ node examples/1_accounts.js
-```
-
-### 2_read_smart_contract.js - Reads the balance of Dai wallet address from the Dai contract
-- Input your infura project ID 
-```
-$ node examples/2_read_smart_contract.js
+$ node code/1_accounts.js
 ```
 
-### 3_send_signed_transaction.js - Transfers 0.025 ether from account1 to account2
-- Input your infura project ID 
-- Input your account1 public key
-- Input your account2 public key
-- Input your account1 private key
+### 2_read_smart_contract.js - Lee el balance de una dirección de la wallet DAI desde un DAI Smart Contract
+- Input: ID Infura 
 ```
-$ node examples/3_send_signed_transaction.js
+$ node code/2_read_smart_contract.js
 ```
-
-### 4_deploy_contract.js - Deploys contract on Kovan testnet by using Factory contract
-- Input your infura project ID 
-- Input your account private key
+### 3_send_signed_transaction.js - Transfiere 0.025 ether de account1 a account2
+- Input: ID Infura 
+- Input: Clave pública account1 
+- Input: Clave pública account2 
+- Input: Clave privada account1 
 ```
-$ node examples/4_deploy_contract.js
+$ node code/3_send_signed_transaction.js
 ```
 
-### 5_write_contract.js - Transfers entire balance of token of your choosing from account1 to account2 (on Kovan testnet)
-- Input your infura project ID 
-- Input your account1 public key
-- Input your account2 public key
-- Input your account1 private key
-- Input contract address of the token you want to transfer (You can use the deployed contract address from the previous script)
+### 4_deploy_contract.js - Despliega un Smart Contract en Testnet usando un Factory 
+- Input: ID Infura 
+- Input: Clave privada de la account 
 ```
-$ node examples/5_write_contract.js
+$ node code/4_deploy_contract.js
 ```
 
-### 6_contract_event_stream.js - Queries a block for transfer events
-- Input your infura project ID 
+### 5_write_contract.js - Transfiere todo el balance de tokens elegido de account1 a account2 (en Kovan testnet)
+- Input: ID Infura 
+- Input: Clave pública account1 
+- Input: Clave pública account2 
+- Input: Clave privada account1 
+- Input: Dirección del Smart Contract de token que quieres transferir
 ```
-$ node examples/6_contract_event_stream.js
+$ node code/5_write_contract.js
 ```
 
-### 7_inspecting_blocks.js - Get transactions from block
-- Input your infura project ID 
+### 6_contract_event_stream.js - Pregunta a un bloqye por los eventos emitidos 
+- Input: ID Infura 
 ```
-$ node examples/7_inspecting_blocks.js
+$ node code/6_contract_event_stream.js
+```
+
+### 7_inspecting_blocks.js - Obtiene las transacciones de un bloque
+- Input: ID Infura 
+```
+$ node code/7_inspecting_blocks.js
 ```
