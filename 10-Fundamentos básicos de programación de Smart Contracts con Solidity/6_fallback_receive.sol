@@ -13,17 +13,17 @@ msg.data -> El calldata completo, que es un area no modificable y no persistente
                 /            \
                si            no
                /               \
-       existe receive()?     fallback()
+       ¿existe receive()?     fallback()
            /       \
           si       no
           /          \
       receive()   fallback()
 */
 
-contract Fallback_Receive{
+contract Fallback_Receive {
 
-    event log (string, address, uint, bytes);
-    
+    event log(string _name, address _sender, uint _amount, bytes _data);
+
     fallback() external payable {
         emit log("fallback", msg.sender, msg.value, msg.data);
     }
@@ -32,3 +32,4 @@ contract Fallback_Receive{
         emit log("receive", msg.sender, msg.value, "");
     }
 }
+
