@@ -28,7 +28,9 @@ contract variables_modifiers {
     bytes1 bytes_1;
  
     // Algoritmo de hash
-    bytes32 public hashing = keccak256(abi.encodePacked("Hola", "Joan"));
+    bytes32 public hashing_keccak256 = keccak256(abi.encodePacked("Hello World", uint(10), 0xAb8483F64d9C6d1EcF9b849Ae677dD3315835cb2));
+    bytes32 public hashing_sha256 = sha256(abi.encodePacked("Hello World"));
+    bytes20 public hashing_ripemd160 = ripemd160(abi.encodePacked("Hello World"));
 
     // Variable address
     address my_address;
