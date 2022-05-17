@@ -18,7 +18,7 @@ contract art is ERC721, Ownable {
     uint256 counter;
 
     // Precio de los NFTs (precio de la obra de arte)
-    uint256 fee = 5 ether;
+    uint256 public fee = 5 ether;
 
     // Estructura de datos con las propiedades de la obra de arte
     struct Arte {
