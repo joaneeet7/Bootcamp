@@ -23,6 +23,9 @@ contract loteria is ERC20, Ownable {
     // Ganador del premio de la loteria
     address public ganador;
 
+    // Registro del usuario 
+    mapping (address => address) public usuario_contract;
+
    // Precio de los tokens del proyecto
     function precioTokens(uint256 _numTokens) internal pure returns (uint256){
         return _numTokens * (1 ether);
@@ -48,12 +51,11 @@ contract loteria is ERC20, Ownable {
         _mint(address(this), _cantidad);
     }    
 
-    // Registro del usuario 
-    mapping (address => address) public usuario_contract;
     function registrar() internal {
         address addr_personal_contract = address(new boletosNFTs(msg.sender, address(this), nft)); 
         usuario_contract[msg.sender] = addr_personal_contract;
     } 
+
 
     // Compra de tokens 
     function compraTokens(uint256 _numTokens) public payable {
