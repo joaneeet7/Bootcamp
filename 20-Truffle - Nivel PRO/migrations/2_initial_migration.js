@@ -1,5 +1,5 @@
-const art = artifacts.require("art");
+const customERC20 = artifacts.require("customERC20");
 
 module.exports = function (deployer) {
-  deployer.deploy(art, "MyNFT", "JA");
+  deployer.deploy(customERC20, "Joan", "JA");
 };
