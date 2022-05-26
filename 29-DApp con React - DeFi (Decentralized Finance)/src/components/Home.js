@@ -4,7 +4,7 @@ import StellartToken from '../abis/StellartToken.json';
 import TokenFarm from '../abis/TokenFarm.json';
 import Web3 from 'web3';
 
-import Navbar from './Navbar';
+import Navigation from './Navbar';
 import MyCarousel from './Carousel';
 import Main from './Main';
 
@@ -41,68 +41,72 @@ class App extends Component {
     const networkId = await web3.eth.net.getId()
     console.log('networkid:', networkId)
 
-    // Carga de JamToken
+    // Carga del JamToken
     const jamTokenData = JamToken.networks[networkId]
     if (jamTokenData) {
       const jamToken = new web3.eth.Contract(JamToken.abi, jamTokenData.address)
-      this.setState({ jamToken })
+      this.setState({ jamToken: jamToken })
       let jamTokenBalance = await jamToken.methods.balanceOf(this.state.account).call()
       this.setState({ jamTokenBalance: jamTokenBalance.toString() })
     } else {
-      window.alert('¡JamToken no se ha desplegado en la red!')
+      window.alert('El JamToken no se ha desplegado en la red')
     }
 
     // Carga de StellartToken
     const stellartTokenData = StellartToken.networks[networkId]
     if (stellartTokenData) {
       const stellartToken = new web3.eth.Contract(StellartToken.abi, stellartTokenData.address)
-      this.setState({ stellartToken })
+      this.setState({ stellartToken: stellartToken })
       let stellartTokenBalance = await stellartToken.methods.balanceOf(this.state.account).call()
       this.setState({ stellartTokenBalance: stellartTokenBalance.toString() })
     } else {
-      window.alert('¡Stellart Token no se ha desplegado en la red!')
+      window.alert('El StellartToken no se ha desplegado en la red')
     }
 
     // Carga de TokenFarm
     const tokenFarmData = TokenFarm.networks[networkId]
     if (tokenFarmData) {
       const tokenFarm = new web3.eth.Contract(TokenFarm.abi, tokenFarmData.address)
-      this.setState({ tokenFarm })
+      this.setState({ tokenFarm: tokenFarm })
       let stakingBalance = await tokenFarm.methods.stakingBalance(this.state.account).call()
       this.setState({ stakingBalance: stakingBalance.toString() })
     } else {
-      window.alert('¡TokenFarm no se ha desplegado en la red!')
+      window.alert('El TokenFarm no se ha desplegado en la red')
     }
     this.setState({ loading: false })
   }
 
   stakeTokens = (amount) => {
     this.setState({ loading: true })
-    this.state.jamToken.methods.approve(this.state.tokenFarm._address, amount).send({ from: this.state.account }).on('transactionHash', (hash) => {
-      this.state.tokenFarm.methods.stakeTokens(amount).send({ from: this.state.account }).on('transactionHash', (hash) => {
-        this.setState({ loading: false })
+    this.state.jamToken.methods.approve(this.state.tokenFarm._address, amount)
+      .send({ from: this.state.account })
+      .on('transactionHash', (hash) => {
+        this.state.tokenFarm.methods.stakeTokens(amount).send({ from: this.state.account })
+          .on('transactionHash', (hash) => {
+            this.setState({ loading: false })
+          })
       })
-    })
   }
 
   unstakeTokens = (amount) => {
     this.setState({ loading: true })
-    this.state.tokenFarm.methods.unstakeTokens().send({ from: this.state.account }).on('transactionHash', (hash) => {
-      this.setState({ loading: false })
-    })
+    this.state.tokenFarm.methods.unstakeTokens().send({ from: this.state.account })
+      .on('transactionHash', (hash) => {
+        this.setState({ loading: false })
+      })
   }
 
   constructor(props) {
     super(props)
     this.state = {
       account: '0x0',
+      loading: true,
       jamToken: {},
-      stellartToken: {},
-      tokenFarm: {},
       jamTokenBalance: '0',
+      stellartToken: {},
       stellartTokenBalance: '0',
+      tokenFarm: {},
       stakingBalance: '0',
-      loading: true
     }
   }
 
@@ -110,7 +114,7 @@ class App extends Component {
 
     let content
     if (this.state.loading) {
-      content = <p id="loader" className="text-center">Loading...</p>
+      content = <p id="loader" className='text-center'>Loading...</p>
     } else {
       content = <Main
         jamTokenBalance={this.state.jamTokenBalance}
@@ -123,18 +127,12 @@ class App extends Component {
 
     return (
       <div>
-        <Navbar account={this.state.account} />
+        <Navigation account={this.state.account} />
         <MyCarousel />
         <div className="container-fluid mt-5">
           <div className="row">
-            <main role="main" className="col-lg-12 ml-auto mr-auto" style={{ maxWidth: '600px' }}>
+            <main role="main" className="col-lg-12 d-flex text-center">
               <div className="content mr-auto ml-auto">
-                <a
-                  href="http://www.blockstellart.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                </a>
 
                 {content}
 
