@@ -46,27 +46,25 @@ module.exports = {
       host: "127.0.0.1",     // Localhost (default: none)
       port: 7545,            // Standard Ethereum port (default: none)
       network_id: "*",       // Any network (default: none)
-    },    
-
-    // Binance Smart Chain (BSC)
-    binance: {
+    },   
+    // Binance Smart Chain Testnet (BSC)
+    bsc: {
       provider: () => new HDWalletProvider(mnemonic, 
-        "https://data-seed-prebsc-1-s1.binance.org:8545"),
-      network_id: 97, 
+        `https://data-seed-prebsc-1-s1.binance.org:8545`),
+      network_id: 97,
       confirmations: 1,
       timeoutBlocks: 200,
-      skipDryRun: true, 
-    },
-
+      skipDryRun: true
+    }, 
+    // Polygon Testnet (MATIC)
     polygon: {
       provider: () => new HDWalletProvider(mnemonic, 
-        "https://rpc-mumbai.maticvigil.com/v1/99a99d15ac2ad3b526aa97401fdbe30ee724ba38"),
-        network_id: 80001,
-        confirmations: 1,
-        timeoutBlocks: 200,
-        skipDryRun: true,
+        `https://rpc-mumbai.maticvigil.com/v1/99a99d15ac2ad3b526aa97401fdbe30ee724ba38`),
+      network_id: 80001,
+      confirmations: 1,
+      timeoutBlocks: 200,
+      skipDryRun: true
     }
-
     // Another network with more advanced options...
     // advanced: {
     // port: 8777,             // Custom port
