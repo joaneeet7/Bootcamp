@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import smart_contract from '../abis/loteria.json';
 import Web3 from 'web3';
 import Swal from 'sweetalert2';
-import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
 import Navigation from './Navbar';
 import MyCarousel from './Carousel';
+import { Container } from 'react-bootstrap';
 
 class Loteria extends Component {
 
@@ -56,7 +56,6 @@ class Loteria extends Component {
         }
     }
 
-    // Constructor
     constructor(props) {
         super(props)
         this.state = {
@@ -67,84 +66,74 @@ class Loteria extends Component {
         }
     }
 
-    // Precio del boleto de loteria
+    _compraBoletos = async (_numBoletos) => {
+        try {
+            console.log("Compra de boletos de loteria en ejecucion...")
+            await this.state.contract.methods.compraBoleto(_numBoletos).send({
+                from: this.state.account
+            })
+            Swal.fire({
+                icon: 'success',
+                title: 'Compra de boletos completada, ¡mucha suerte!',
+                width: 800,
+                padding: '3em',
+                text: `Has comprado ${_numBoletos} boletos`,
+                backdrop: `
+              rgba(15, 238, 168, 0.2)
+              left top
+              no-repeat
+            `
+            })
+        } catch (err) {
+            this.setState({ errorMessage: err })
+        } finally {
+            this.setState({ loading: false })
+        }
+    }
+
     _precioBoleto = async () => {
         try {
-            console.log("Precio del boleto de loteria en ejecución...")
+            console.log("Precio del boleto en ejecucion...")
             const _precio = await this.state.contract.methods.precioBoleto().call()
-
-            // Precio del boleto
             Swal.fire({
-                title: `El precio del boleto de lotería es de ${_precio} ethers`,
-                width: 800,
                 icon: 'info',
-                padding: '3em',
-                backdrop: `
-            rgba(15, 238, 168,0.2)
-            left top
-            no-repeat
-          `
-            })
-
-        } catch (err) {
-            this.setState({ errorMessage: err.message })
-        } finally {
-            this.setState({ loading: false })
-        }
-    }
-
-    // Compra de boletos de loteria
-    _compraBoleltos = async (_numBoletos) => {
-        try {
-            console.log("Compra de boletos de loteria en ejecución...")
-            const web3 = window.web3
-            const accounts = await web3.eth.getAccounts()
-            await this.state.contract.methods.compraBoleto(_numBoletos).send({ from: accounts[0] })
-
-            // Notificacion de compra
-            Swal.fire({
-                title: 'Compra de boletos realizada, ¡¡mucha suerte!!',
-                text: `Has comprado ${_numBoletos} boletos`,
+                title: `El precio del boleto es de ${_precio} tokens (ERC-20)`,
                 width: 800,
-                icon: 'success',
                 padding: '3em',
                 backdrop: `
-            rgba(15, 238, 168,0.2)
-            left top
-            no-repeat
-          `
+              rgba(15, 238, 168, 0.2)
+              left top
+              no-repeat
+            `
             })
         } catch (err) {
-            this.setState({ errorMessage: err.message })
+            this.setState({ errorMessage: err })
         } finally {
             this.setState({ loading: false })
         }
     }
 
-    // Visualizacion de los numeros de loteria
     _tusBoletos = async () => {
         try {
-            console.log("Visualizacion de tus boletos de loteria en ejecución...")
-            const web3 = window.web3
-            const accounts = await web3.eth.getAccounts()
-            const _boletos = await this.state.contract.methods.tusBoletos(accounts[0]).call()
-
-            // Balance de tokens
+            console.log("Visualizacion de tus boletos en ejecucion...")
+            const _boletos = await this.state.contract.methods.tusBoletos(
+                this.state.account
+            ).call()
             Swal.fire({
-                title: `Tus boletos son:`,
-                text: `${_boletos}`,
-                width: 800,
                 icon: 'info',
+                title: `Tus boletos son:`,
+                width: 800,
+                text: `${_boletos}`,
                 padding: '3em',
                 backdrop: `
-            rgba(15, 238, 168,0.2)
-            left top
-            no-repeat
-          `
+              rgba(15, 238, 168, 0.2)
+              left top
+              no-repeat
+            `
             })
 
         } catch (err) {
-            this.setState({ errorMessage: err.message })
+            this.setState({ errorMessage: err })
         } finally {
             this.setState({ loading: false })
         }
@@ -159,53 +148,45 @@ class Loteria extends Component {
                     <div className="row">
                         <main role="main" className="col-lg-12 d-flex text-center">
                             <div className="content mr-auto ml-auto">
-
-                                <h1>Gestión de la Lotería con Tokens ERC-2O</h1>
-
-                                <h3>Compra de boletos </h3>
+                                <h1> Gestión de la Lotería con ERC-20 y ERC-721 </h1>
+                                <h3> Compra de boletos </h3>
                                 <form onSubmit={(event) => {
                                     event.preventDefault()
                                     const cantidad = this._numBoletos.value
-                                    this._compraBoleltos(cantidad)
-                                }
-                                }>
+                                    this._compraBoletos(cantidad)
+                                }} >
                                     <input type="number"
                                         className="form-control mb-1"
                                         placeholder="Cantidad de boletos a comprar"
                                         ref={(input) => this._numBoletos = input} />
 
                                     <input type="submit"
-                                        className='bbtn btn-block btn-primary btn-sm'
-                                        value='COMPRAR BOLETOS' />
+                                        className="bbtn btn-block btn-primary btn-sm"
+                                        value="COMPRAR BOLETOS" />
                                 </form>
-
+                                &nbsp;
                                 <Container>
                                     <Row>
                                         <Col>
-                                            <h3>Precio Boleto </h3>
+                                            <h3> Precio Boleto </h3>
                                             <form onSubmit={(event) => {
                                                 event.preventDefault()
                                                 this._precioBoleto()
-                                            }
-                                            }>
-
+                                            }}>
                                                 <input type="submit"
-                                                    className='bbtn btn-block btn-danger btn-sm'
-                                                    value='PRECIO BOLETO' />
+                                                    className="bbtn btn-block btn-danger btn-sm"
+                                                    value="PRECIO BOLETO" />
                                             </form>
                                         </Col>
-
                                         <Col>
-                                            <h3>Tus Boletos </h3>
+                                            <h3> Tus Boletos </h3>
                                             <form onSubmit={(event) => {
                                                 event.preventDefault()
                                                 this._tusBoletos()
-                                            }
-                                            }>
-
+                                            }}>
                                                 <input type="submit"
-                                                    className='bbtn btn-block btn-success btn-sm'
-                                                    value='TUS BOLETO' />
+                                                    className="bbtn btn-block btn-success btn-sm"
+                                                    value="TUS BOLETOS" />
                                             </form>
                                         </Col>
                                     </Row>
