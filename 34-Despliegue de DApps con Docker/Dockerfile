@@ -1,19 +1,18 @@
-# Imagen base de node
+# Imagen base
 FROM node:16.15.0
 
-# Creacion de un directorio
+# Directorio de trabajo 
 WORKDIR /usr/src/app
 
-# Copia del codigo dentro del contenedor de Docker
+# Copia del codigo dentro del contenedor
 COPY . .
 
-# Instalación de módulos necesarios
+# Instalacion de los modulos
 RUN npm install package.json
 RUN npm install -g truffle@5.5.9
 
-# Exposicion de un puerto del contenedor de Docker
+# Exposicion de un puerto del contenedor
 EXPOSE 3000
 
 # Entrypoint para la ejecucion de la DApp
 ENTRYPOINT [ "sh" ]
-

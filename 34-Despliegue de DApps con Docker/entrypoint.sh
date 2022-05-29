@@ -1,3 +1,3 @@
 #!/bin/bash
-truffle migrate --network bsc --reset 
+truffle migrate --network bsc --reset
 npm start
