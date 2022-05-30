@@ -1,8 +1,6 @@
-import {
-    Link
-} from "react-router-dom";
-import { Navbar, Nav, Button, Container } from 'react-bootstrap'
-import nft from './nft.png'
+import { Link } from "react-router-dom";
+import { Navbar, Nav, Button, Container } from 'react-bootstrap';
+import nft from './nft.png';
 
 const Navigation = ({ web3Handler, account }) => {
     return (
@@ -30,17 +28,17 @@ const Navigation = ({ web3Handler, account }) => {
                                 <Button variant="outline-light">
                                     {account}
                                 </Button>
-
                             </Nav.Link>
                         ) : (
-                            <Button onClick={web3Handler} variant="outline-light">Connect Wallet</Button>
+                            <Button onClick={web3Handler} variant="outline-light">
+                                Connect Wallet
+                            </Button>
                         )}
                     </Nav>
                 </Navbar.Collapse>
             </Container>
         </Navbar>
     )
-
 }
 
 export default Navigation;
