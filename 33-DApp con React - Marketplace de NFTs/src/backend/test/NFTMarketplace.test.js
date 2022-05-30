@@ -102,6 +102,11 @@ describe("NFTMarketplace", function () {
     });
 
   });
+
+
+
+
+
   describe("Purchasing marketplace items", function () {
     let price = 2
     let fee = (feePercent/100)*price
@@ -114,6 +119,7 @@ describe("NFTMarketplace", function () {
       // addr1 makes their nft a marketplace item.
       await marketplace.connect(addr1).makeItem(nft.address, 1 , toWei(price))
     })
+
     it("Should update item as sold, pay seller, transfer NFT to buyer, charge fees and emit a Bought event", async function () {
       const sellerInitalEthBal = await addr1.getBalance()
       const feeAccountInitialEthBal = await deployer.getBalance()
@@ -132,6 +138,8 @@ describe("NFTMarketplace", function () {
         )
       const sellerFinalEthBal = await addr1.getBalance()
       const feeAccountFinalEthBal = await deployer.getBalance()
+
+
       // Item should be marked as sold
       expect((await marketplace.items(1)).sold).to.equal(true)
       // Seller should receive payment for the price of the NFT sold.
@@ -141,6 +149,9 @@ describe("NFTMarketplace", function () {
       // The buyer should now own the nft
       expect(await nft.ownerOf(1)).to.equal(addr2.address);
     })
+
+
+
     it("Should fail for invalid item ids, sold items and when not enough ether is paid", async function () {
       // fails for invalid item ids
       await expect(

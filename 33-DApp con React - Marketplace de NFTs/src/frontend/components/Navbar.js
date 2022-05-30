@@ -8,7 +8,7 @@ const Navigation = ({ web3Handler, account }) => {
     return (
         <Navbar expand="lg" bg="primary" variant="dark">
             <Container>
-                <Navbar.Brand href="https://blockstellart.com">
+                <Navbar.Brand>
                     <img src={nft} width="40" height="40" className="" alt="" />
                     &nbsp; NFT Marketplace
                 </Navbar.Brand>
@@ -16,9 +16,9 @@ const Navigation = ({ web3Handler, account }) => {
                 <Navbar.Collapse id="navbar navbar-dark bg-primary">
                     <Nav className="me-auto">
                         <Nav.Link as={Link} to="/">Home</Nav.Link>
-                        <Nav.Link as={Link} to="/create">Crear</Nav.Link>
+                        <Nav.Link as={Link} to="/create">Create</Nav.Link>
                         <Nav.Link as={Link} to="/my-listed-items">Items</Nav.Link>
-                        <Nav.Link as={Link} to="/my-purchases">Compras</Nav.Link>
+                        <Nav.Link as={Link} to="/my-purchases">Purchases</Nav.Link>
                     </Nav>
                     <Nav>
                         {account ? (
@@ -33,7 +33,7 @@ const Navigation = ({ web3Handler, account }) => {
 
                             </Nav.Link>
                         ) : (
-                            <Button onClick={web3Handler} variant="outline-light">Conectar Wallet</Button>
+                            <Button onClick={web3Handler} variant="outline-light">Connect Wallet</Button>
                         )}
                     </Nav>
                 </Navbar.Collapse>

@@ -59,7 +59,7 @@ export default function MyPurchases({ marketplace, nft, account }) {
         </div>
         : (
           <main style={{ padding: "1rem 0" }}>
-            <h2>No hay compras</h2>
+            <h2>No purchases</h2>
           </main>
         )}
     </div>
